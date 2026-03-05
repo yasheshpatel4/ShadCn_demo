@@ -3,6 +3,7 @@ import { Button } from "./components/ui/button"
 import { LayoutDashboard, Users, Settings, LogOut } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
+import { Counter } from "./features/Counter"
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -33,7 +34,7 @@ export default function Dashboard() {
     <div className="flex h-screen bg-muted/40">
       <aside className="w-64 border-r bg-background hidden md:flex flex-col">
         <div className="p-6 font-bold text-xl flex items-center gap-2">
-          <LayoutDashboard className="w-6 h-6" /> MyApplication
+          <LayoutDashboard className="w-6 h-6" /> My Dashboard
         </div>
         <nav className="flex-1 px-4 space-y-2">
           <Button variant="ghost" className="w-full justify-start gap-2">
@@ -58,8 +59,8 @@ export default function Dashboard() {
             { title: "Subscriptions", value: "+2350", trend: "+180.1%" },
             { title: "Sales", value: "+12,234", trend: "+19%" },
             { title: "Active Now", value: "+573", trend: "+201" },
-          ].map((stat, i) => (
-            <Card key={i}>
+          ].map((stat) => (
+            <Card key={stat.title}>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
               </CardHeader>
@@ -84,6 +85,7 @@ export default function Dashboard() {
           {isLoading && <p className="mt-2 text-sm text-center">Loading...</p>}
           {data && <p className="mt-2 text-sm text-center text-green-600">Data loaded! Check console.</p>}
         </div>
+        <Counter/>
       </main>
     </div>
   )

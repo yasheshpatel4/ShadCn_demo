@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Label } from "./components/ui/label"
 import { Input } from "./components/ui/input"
 import { Button } from "./components/ui/button"
-import { Loader2, Github } from "lucide-react"
+import { Loader2 } from "lucide-react"
 
 export function LoginForm() {
   const [email, setEmail] = useState("")
@@ -52,7 +52,7 @@ export function LoginForm() {
               <div className="grid gap-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
-                  <a href="#" className="text-sm font-medium text-primary hover:underline">Forgot password?</a>
+                  <p className="text-sm font-medium text-primary hover:underline">Forgot password?</p>
                 </div>
                 <Input id="password" type="password" className="bg-white/50" required />
               </div>
@@ -64,7 +64,7 @@ export function LoginForm() {
               </Button>
               <p className="text-center text-sm text-muted-foreground">
                 Don&apos;t have an account?{" "}
-                <a href="#" className="font-semibold text-primary hover:underline">Sign up</a>
+                <p className="font-semibold text-primary hover:underline">Sign up</p>
               </p>
             </CardFooter>
           </Card>

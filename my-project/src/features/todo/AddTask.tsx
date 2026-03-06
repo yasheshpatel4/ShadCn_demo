@@ -1,6 +1,6 @@
 import { taskAdded } from './reducer';
 import React, { useState } from 'react';
-import { useAppDispatch } from '../app/hook';
+import { useAppDispatch } from '../../redux/hook';
 
 export const AddTask = () => {
     const dispatch = useAppDispatch();

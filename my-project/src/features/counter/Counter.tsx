@@ -1,6 +1,6 @@
-import { useAppSelector, useAppDispatch } from '../app/hook'
-import { Button } from '../components/ui/button'
-import { decrement, increment } from './counterSlice'
+import { useAppSelector, useAppDispatch } from '../../redux/hook'
+import { Button } from '../../components/ui/button'
+import { decrement, increment } from '../counter/counterSlice'
 
 export function Counter() {
   const count = useAppSelector(state => state.counter.value)

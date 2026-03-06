@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import toDoReducer from '../features/reducer'; 
-import counterReducer from '../features/counterSlice';
+import toDoReducer from '../features/todo/reducer'; 
+import counterReducer from '../features/counter/counterSlice';
 
 const rootReducer = combineReducers({
   counter: counterReducer,

@@ -5,7 +5,7 @@ import { LoginForm } from './Loginform'
 import Dashboard from './Dashboard'
 import './index.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { store } from './app/store'
+import { store } from './redux/store'
 import { Provider } from 'react-redux'
 
 const queryClient = new QueryClient();

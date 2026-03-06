@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../app/hook';
-import { Button } from '../components/ui/button';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { Button } from '../../components/ui/button';
 import { 
   taskToggled, 
   taskDeleted, 

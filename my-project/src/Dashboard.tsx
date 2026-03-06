@@ -3,8 +3,8 @@ import { Button } from "./components/ui/button"
 import { LayoutDashboard, Users, Settings, LogOut } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
-import { Counter } from "./features/Counter"
-import { ToDoList } from "./features/ToDoList"
+import { Counter } from "./features/counter/Counter"
+import { ToDoList } from "./features/todo/ToDoList"
 
 export default function Dashboard() {
   const navigate = useNavigate()

@@ -2,7 +2,7 @@ import {
     createSlice,
     type PayloadAction,
 } from '@reduxjs/toolkit';
-import type { RootState } from '../app/store';
+import type { RootState } from '../../redux/store';
 
 type Task = {
     id: string;
@@ -56,9 +56,9 @@ const { reducer } = slice;
 
 export const { taskAdded, taskToggled, taskDeleted,taskEdit } = slice.actions;
 export const selectAllTasks = (state: RootState) => 
-    state.toDo.tasks.ids.map(id => state.toDo.tasks.byId[id]);
+    state.toDo.tasks.ids.map((id: string | number) => state.toDo.tasks.byId[id]);
 
 export const selectCountOfCompletedTasks = (state: RootState) => 
-    state.toDo.tasks.ids.filter(id => state.toDo.tasks.byId[id].completed).length;
+    state.toDo.tasks.ids.filter((id: string | number) => state.toDo.tasks.byId[id].completed).length;
 
 export default reducer;

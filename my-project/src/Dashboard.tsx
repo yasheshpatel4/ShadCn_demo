@@ -1,35 +1,25 @@
+import { useNavigate } from "react-router-dom"
+import { LayoutDashboard, Users, Settings, LogOut } from "lucide-react"
+
+import { useAppSelector, useAppDispatch } from "./redux/hook"
+import { fetchProducts } from "./features/product/productSlice"
+
 import { Card, CardHeader, CardTitle, CardContent } from "./components/ui/card"
 import { Button } from "./components/ui/button"
-import { LayoutDashboard, Users, Settings, LogOut } from "lucide-react"
-import { useNavigate } from "react-router-dom"
-import { useQuery } from "@tanstack/react-query"
 import { Counter } from "./features/counter/Counter"
 import { ToDoList } from "./features/todo/ToDoList"
 
 export default function Dashboard() {
   const navigate = useNavigate()
+  
+  const dispatch = useAppDispatch()
+  const { items, status, error } = useAppSelector((state) => state.products)
 
-  const fetchProducts = async () => {
-    const response = await fetch("https://dummyjson.com/products");
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  };
-
-  const { data, isLoading, refetch, isFetching } = useQuery({
-    queryKey: ["products"],
-    queryFn: fetchProducts,
-    enabled: false,
-  });
-
-  if (data) {
-    console.log("Products:", data);
-  }
+  const isFetching = status === "loading"
 
   const handleFetch = () => {
-    refetch();
-  };
+    dispatch(fetchProducts())
+  }
 
   return (
     <div className="flex h-screen bg-muted/40">
@@ -51,6 +41,7 @@ export default function Dashboard() {
           </Button>
         </div>
       </aside>
+
       <main className="flex-1 p-8 overflow-y-auto">
         <h1 className="text-3xl font-bold mb-6">Dashboard Overview</h1>
         
@@ -73,22 +64,38 @@ export default function Dashboard() {
           ))}
         </div>
 
-        <div className="p-4 bg-white rounded-lg border">
+        <div className="p-4 bg-white rounded-lg border mb-6">
           <Button 
             variant="default" 
             className="w-full gap-2" 
-            onClick={handleFetch}
+            onClick={handleFetch} 
             disabled={isFetching}
           >
             {isFetching ? "Fetching..." : "Fetch Products"}
           </Button>
+
+          {status === "loading" && (
+            <p className="mt-2 text-sm text-center">Loading from API...</p>
+          )}
           
-          {isLoading && <p className="mt-2 text-sm text-center">Loading...</p>}
-          {data && <p className="mt-2 text-sm text-center text-green-600">Data loaded! Check console.</p>}
+          {status === "succeeded" && (
+            <p className="mt-2 text-sm text-center text-green-600">
+              Successfully loaded {items.length} products!
+            </p>
+          )}
+
+          {status === "failed" && (
+            <p className="mt-2 text-sm text-center text-red-500">
+              Error: {error}
+            </p>
+          )}
         </div>
-        <Counter/>
-        <ToDoList/>
+
+        <div className="space-y-6">
+          <Counter />
+          <ToDoList />
+        </div>
       </main>
     </div>
-  )
-}
+  );
+};

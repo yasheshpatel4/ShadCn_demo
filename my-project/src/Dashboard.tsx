@@ -4,6 +4,7 @@ import { LayoutDashboard, Users, Settings, LogOut } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { Counter } from "./features/Counter"
+import { ToDoList } from "./features/ToDoList"
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -86,6 +87,7 @@ export default function Dashboard() {
           {data && <p className="mt-2 text-sm text-center text-green-600">Data loaded! Check console.</p>}
         </div>
         <Counter/>
+        <ToDoList/>
       </main>
     </div>
   )

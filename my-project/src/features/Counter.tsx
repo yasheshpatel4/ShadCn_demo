@@ -7,8 +7,8 @@ export function Counter() {
   const dispatch = useAppDispatch()
 
   return (
-    <div className='flex space-between'>
-      <div>
+    <div className='flex space-between justify-center'>
+      <div className='flex gap-5'>
         <Button 
             variant="default" 
             className="w-25" 

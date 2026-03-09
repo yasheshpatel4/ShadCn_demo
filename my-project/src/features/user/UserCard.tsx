@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
 import type { UserData } from "./UserForm";
 
-export function UserCard({ data }: { data: UserData | null }) {
+export function UserCard({ data }: Readonly<{ data: UserData | null }>) {
   if (!data) return null
 
   return (
@@ -13,6 +13,10 @@ export function UserCard({ data }: { data: UserData | null }) {
         <p><strong>Name:</strong> {data.username}</p>
         <p><strong>Role:</strong> {data.role}</p>
         <p><strong>Status:</strong> {data.active ? "Active" : "Disabled"}</p>
+        <p><strong>Skills:</strong></p>
+        {data.skills.map((skill)=>(
+            <p key={skill}>{skill}</p>
+        ))}
       </CardContent>
     </Card>
   )

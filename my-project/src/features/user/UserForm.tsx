@@ -1,4 +1,4 @@
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
@@ -14,8 +14,8 @@ export type UserData = {
   skills: typeof SKILLS[number][];
 };
 
-export function UserForm({ onSubmit }: { onSubmit: (data: UserData) => void }) {
-  const { register, handleSubmit, setValue, watch, control,formState:{errors} } = useForm<UserData>({
+export function UserForm({ onSubmit }: Readonly<{ onSubmit: (data: UserData) => void }>) {
+  const { register, handleSubmit, setValue, watch, formState:{errors} } = useForm<UserData>({
     defaultValues: {
       username: "",
       role: "user",
@@ -59,7 +59,7 @@ export function UserForm({ onSubmit }: { onSubmit: (data: UserData) => void }) {
               message: "Username must be at most 20 characters"
             },
             pattern: {
-              value: /^[a-zA-Z0-9_]+$/,
+              value: /^\w+$/,
               message: "Username can only contain letters, numbers, and underscores"
             }
           })}

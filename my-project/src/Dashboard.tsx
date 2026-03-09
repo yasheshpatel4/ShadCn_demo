@@ -8,6 +8,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "./components/ui/card"
 import { Button } from "./components/ui/button"
 import { Counter } from "./features/counter/Counter"
 import { ToDoList } from "./features/todo/ToDoList"
+import User from "./features/user/User"
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -94,6 +95,7 @@ export default function Dashboard() {
         <div className="space-y-6">
           <Counter />
           <ToDoList />
+          <User/>
         </div>
       </main>
     </div>

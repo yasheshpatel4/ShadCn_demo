@@ -21,11 +21,20 @@ export const counterSlice = createSlice({
     },
     incrementByAmount: function (state, action: PayloadAction<number>) {
         state.value += action.payload
+    },
+    decrementByAmount: function (state, action:PayloadAction<number>) {
+      state.value -= action.payload
+    },
+    multiplyByTwo: function (state) {
+      state.value *=2
+    },
+    divideByTwo: function (state) {
+      state.value /=2;
     }
   }
 })
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const { increment, decrement, incrementByAmount, decrementByAmount,multiplyByTwo,divideByTwo } = counterSlice.actions
 export const selectCount = (state: RootState) => state.counter.value
 
 export default counterSlice.reducer

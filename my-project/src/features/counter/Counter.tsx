@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from '../../redux/hook'
 import { Button } from '../../components/ui/button'
-import { decrement, increment } from '../counter/counterSlice'
+import { decrement, decrementByAmount, increment, incrementByAmount } from '../counter/counterSlice'
 
 export function Counter() {
   const count = useAppSelector(state => state.counter.value)
@@ -9,6 +9,25 @@ export function Counter() {
   return (
     <div className='flex space-between justify-center'>
       <div className='flex gap-5'>
+        <Button
+          variant="default"
+          className='w-35'
+          onClick={()=>{
+            dispatch(decrementByAmount(5))
+          }}
+        >
+        DecrementBy 5
+        </Button>
+        <Button
+          variant="default"
+          className='w-25'
+          onClick={()=>{
+            dispatch(decrement())
+          }}
+        >
+        Decrement
+        </Button>
+        <span className=' bg-white border-2'>{count}</span>
         <Button 
             variant="default" 
             className="w-25" 
@@ -16,14 +35,16 @@ export function Counter() {
         >
         Increment
         </Button>
-        <span className=' bg-white border-2'>{count}</span>
-        <Button 
-            variant="default" 
-            className="w-25" 
-            onClick={()=>dispatch(decrement())}
+        <Button
+          variant="default"
+          className='w-35'
+          onClick={()=>{
+            dispatch(incrementByAmount(5))
+          }}
         >
-        Decrement
+        IncrementBy 5
         </Button>
+        
       </div>
     </div>
   )

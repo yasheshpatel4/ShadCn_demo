@@ -21,6 +21,10 @@ export default function Dashboard() {
   const handleFetch = () => {
     dispatch(fetchProducts())
   }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  }
 
   return (
     <div className="flex h-screen bg-muted/40">
@@ -37,7 +41,7 @@ export default function Dashboard() {
           </Button>
         </nav>
         <div className="p-4 border-t">
-          <Button variant="outline" className="w-full gap-2" onClick={() => navigate("/")}>
+          <Button variant="outline" className="w-full gap-2" onClick={handleLogout}>
             <LogOut className="w-4 h-4" /> Logout
           </Button>
         </div>

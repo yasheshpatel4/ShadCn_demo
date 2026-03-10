@@ -1,4 +1,5 @@
 import {
+    createSelector,
     createSlice,
     type PayloadAction,
 } from '@reduxjs/toolkit';
@@ -55,10 +56,22 @@ const slice = createSlice({
 const { reducer } = slice;
 
 export const { taskAdded, taskToggled, taskDeleted,taskEdit } = slice.actions;
-export const selectAllTasks = (state: RootState) => 
-    state.toDo.tasks.ids.map((id: string | number) => state.toDo.tasks.byId[id]);
+const selectTaskById = (state: RootState) => state.toDo.tasks.byId;
+const selectTaskIds = (state: RootState) => state.toDo.tasks.ids;
 
-export const selectCountOfCompletedTasks = (state: RootState) => 
-    state.toDo.tasks.ids.filter((id: string | number) => state.toDo.tasks.byId[id].completed).length;
+export const selectAllTasks = createSelector(
+    [selectTaskById, selectTaskIds],
+    (byId, ids) => ids.map((id) => byId[id])
+);
+
+export const selectCountOfCompletedTasks = createSelector(
+    [selectAllTasks],
+    (tasks) => tasks.filter(task => task.completed).length
+);
+// export const selectAllTasks = (state: RootState) => 
+//     state.toDo.tasks.ids.map((id: string | number) => state.toDo.tasks.byId[id]);
+
+// export const selectCountOfCompletedTasks = (state: RootState) => 
+//     state.toDo.tasks.ids.filter((id: string | number) => state.toDo.tasks.byId[id].completed).length;
 
 export default reducer;

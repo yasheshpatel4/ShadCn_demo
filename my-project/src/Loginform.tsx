@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./components/ui/card"
 import { Label } from "./components/ui/label"
@@ -11,11 +11,19 @@ export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [navigate]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     
     setTimeout(() => {
+      localStorage.setItem("token", "token");
       setIsLoading(false)
       navigate("/dashboard")
     }, 1000)
@@ -64,7 +72,7 @@ export function LoginForm() {
               </Button>
               <p className="text-center text-sm text-muted-foreground">
                 Don&apos;t have an account?{" "}
-                <p className="font-semibold text-primary hover:underline">Sign up</p>
+                <span className="font-semibold text-primary hover:underline">Sign up</span>
               </p>
             </CardFooter>
           </Card>

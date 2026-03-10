@@ -9,6 +9,7 @@ import { Button } from "./components/ui/button"
 import { Counter } from "./features/counter/Counter"
 import { ToDoList } from "./features/todo/ToDoList"
 import User from "./features/user/User"
+import { useQuery } from "@tanstack/react-query"
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -16,7 +17,7 @@ export default function Dashboard() {
   const dispatch = useAppDispatch()
   const { items, status, error } = useAppSelector((state) => state.products)
 
-  const isFetching = status === "loading"
+  const isFetching1 = status === "loading"
 
   const handleFetch = () => {
     dispatch(fetchProducts())
@@ -25,6 +26,27 @@ export default function Dashboard() {
     localStorage.removeItem("token");
     navigate("/");
   }
+  const fetchProducts1 = async () => {
+    const response = await fetch("https://dummyjson.com/products");
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  };
+
+  const { data, isLoading, refetch, isFetching } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProducts1,
+    enabled: false,
+  });
+
+  if (data) {
+    console.log("Products:", data);
+  }
+
+  const handleFetch1 = () => {
+    refetch();
+  };
 
   return (
     <div className="flex h-screen bg-muted/40">
@@ -68,15 +90,28 @@ export default function Dashboard() {
             </Card>
           ))}
         </div>
+        <div className="p-4 bg-white rounded-lg border">
+          <Button 
+            variant="default" 
+            className="w-full gap-2" 
+            onClick={handleFetch1}
+            disabled={isFetching}
+          >
+            {isFetching ? "Fetching..." : "Fetch Products"}
+          </Button>
+          
+          {isLoading && <p className="mt-2 text-sm text-center">Loading...</p>}
+          {data && <p className="mt-2 text-sm text-center text-green-600">Data loaded! Check console.</p>}
+        </div>
 
         <div className="p-4 bg-white rounded-lg border mb-6">
           <Button 
             variant="default" 
             className="w-full gap-2" 
             onClick={handleFetch} 
-            disabled={isFetching}
+            disabled={isFetching1}
           >
-            {isFetching ? "Fetching..." : "Fetch Products"}
+            {isFetching1 ? "Fetching..." : "Fetch Products"}
           </Button>
 
           {status === "loading" && (
